@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алексей Крылов — Коучинг для предпринимателей</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f7fafc;
+        }
+
+        /* ===== Scroll Reveal Animations ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible,
+        .reveal-left.visible,
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* ===== Animated Gradient Hero ===== */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #1a365d 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 120px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== Floating Shapes in Hero ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-3deg); }
+            75% { transform: translateY(-25px) rotate(2deg); }
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            background: white;
+            pointer-events: none;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -80px;
+            left: -60px;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: -50px;
+            animation: float 9s ease-in-out infinite 1s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            bottom: -40px;
+            left: 30%;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            right: 20%;
+            animation: float 8s ease-in-out infinite 0.5s;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.15em;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(243, 156, 18, 0.4);
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.4em;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #1a365d;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            line-height: 1.7;
+        }
+
+        /* ===== About ===== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #f39c12;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* ===== Stats ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            color: #f39c12;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        /* ===== Services / Tabs ===== */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            border-left: 5px solid #f39c12;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #1a365d;
+            margin-bottom: 12px;
+            font-size: 1.25em;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .tabs-container {
+            margin: 40px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #999;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-button:hover {
+            color: #f39c12;
+        }
+
+        .tab-button.active {
+            color: #f39c12;
+            border-bottom-color: #f39c12;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: "\201C";
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 4em;
+            color: #f39c12;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a365d, #2d3748);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 2px;
+        }
+
+        .testimonial-role {
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        /* ===== Form ===== */
+        .form-section {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            padding: 60px 40px;
+            border-radius: 16px;
+            color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+        }
+
+        .form-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .form-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-section p {
+            margin-bottom: 30px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            transition: box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-button {
+            width: 100%;
+            background: white;
+            color: #f39c12;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #1a365d;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.95em;
+        }
+
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* ===== Scroll to Top Button ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #1a365d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(26, 54, 93, 0.3);
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        /* ===== Sticky Header Shadow ===== */
+        header.scrolled {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 80px 20px 70px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                padding: 12px 16px;
+                font-size: 0.95em;
+            }
+
+            .form-section {
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Hero ===== -->
+    <header>
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <h1>Удвойте доход без найма</h1>
+        <p>За 90 дней — от идеи к первым 100 000 рублей. Для предпринимателей, которые готовы к работе</p>
+        <a href="#form" class="cta-button">Начать интенсив</a>
+    </header>
+
+    <!-- ===== About ===== -->
+    <section>
+        <h2 class="section-title reveal">Обо мне</h2>
+        <p class="section-subtitle reveal">Более 8 лет помогаю предпринимателям расти и достигать финансовых целей</p>
+        <div class="about-content">
+            <div class="about-text reveal-left">
+                <h3>Опыт в развитии бизнеса</h3>
+                <p>Я работаю с предпринимателями и руководителями, помогая им выстроить стратегию роста, повысить продажи и создать системы управления.</p>
+                <p>Мой подход основан на анализе вашей реальной ситуации, постановке ясных целей и разработке конкретного плана действий.</p>
+                <h3 style="margin-top: 30px;">Результаты</h3>
+                <p>Клиенты обычно видят результаты в течение первого месяца работы.</p>
+            </div>
+            <div class="stats reveal-right">
+                <div class="stat-box">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-text">Успешных проектов</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-count="8">0</div>
+                    <div class="stat-text">Лет опыта</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-text">Рекомендаций</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Services / Tabs ===== -->
+    <section>
+        <h2 class="section-title reveal">Что я предлагаю</h2>
+        <p class="section-subtitle reveal">Индивидуальные решения для каждого этапа развития вашего бизнеса</p>
+        <div class="tabs-container reveal">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="tab1">Индивидуальный коучинг</button>
+                <button class="tab-button" data-tab="tab2">Групповые программы</button>
+                <button class="tab-button" data-tab="tab3">Бизнес-стратегия</button>
+                <button class="tab-button" data-tab="tab4">Управление командой</button>
+            </div>
+            <div class="tab-content active" id="tab1">
+                <div class="service-card">
+                    <h3>Индивидуальный коучинг</h3>
+                    <p>Персональные сессии для разработки стратегии и решения конкретных задач вашего бизнеса. Вы получите персональный план развития, поддержку и инструменты для быстрого роста.</p>
+                    <p style="margin-top: 15px;"><strong>Стоимость:</strong> от 500 до 2000 рублей за сессию</p>
+                </div>
+            </div>
+            <div class="tab-content" id="tab2">
+                <div class="service-card">
+                    <h3>Групповые программы</h3>
+                    <p>Интенсивные программы для команд и предпринимателей с общими целями. Синергия группы ускоряет результаты в 2-3 раза.</p>
+                    <p style="margin-top: 15px;"><strong>Программа:</strong> 12 недель, 2 сессии в неделю</p>
+                </div>
+            </div>
+            <div class="tab-content" id="tab3">
+                <div class="service-card">
+                    <h3>Бизнес-стратегия</h3>
+                    <p>Разработка долгосрочной стратегии развития вашего предприятия. Включает анализ рынка, конкурентов и создание детального дорожного плана на 1-3 года.</p>
+                    <p style="margin-top: 15px;"><strong>Включает:</strong> Консультации, анализ, документация</p>
+                </div>
+            </div>
+            <div class="tab-content" id="tab4">
+                <div class="service-card">
+                    <h3>Управление командой</h3>
+                    <p>Помощь в создании эффективной системы управления и развитии лидерских навыков. Обучение методам делегирования, мотивации и построения продуктивной команды.</p>
+                    <p style="margin-top: 15px;"><strong>Результат:</strong> Увеличение производительности на 40%+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Testimonials ===== -->
+    <section>
+        <h2 class="section-title reveal">Отзывы клиентов</h2>
+        <p class="section-subtitle reveal">Истории реальных людей, которые изменили свой бизнес</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal-left">
+                <p class="testimonial-text">За 3 месяца работы с Алексеем мы увеличили выручку на 60%. Его подход к анализу бизнес-процессов открыл нам точки роста, которые мы не замечали годами.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">МК</div>
+                    <div>
+                        <div class="testimonial-name">Марина Козлова</div>
+                        <div class="testimonial-role">Основатель студии дизайна</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <p class="testimonial-text">Алексей помог выстроить систему управления командой из 15 человек. Теперь я могу спокойно уехать в отпуск, зная что бизнес работает без моего постоянного участия.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">ДС</div>
+                    <div>
+                        <div class="testimonial-name">Дмитрий Соколов</div>
+                        <div class="testimonial-role">CEO логистической компании</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal-right">
+                <p class="testimonial-text">Индивидуальный коучинг с Алексеем стал поворотным моментом. Я наконец-то научилась делегировать и сфокусировалась на стратегии. Доход вырос вдвое за полгода.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">ЕН</div>
+                    <div>
+                        <div class="testimonial-name">Елена Новикова</div>
+                        <div class="testimonial-role">Владелица сети кофеен</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Form ===== -->
+    <section id="form">
+        <h2 class="section-title reveal">Готовы начать?</h2>
+        <p class="section-subtitle reveal">Заполните форму, и я свяжусь с вами для бесплатной консультации</p>
+        <div class="form-section reveal">
+            <h2>Начните свой путь развития</h2>
+            <p>Оставьте свои контакты — я свяжусь с вами и предложу персональный план действий</p>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Кратко о вашей задаче" required></textarea>
+                </div>
+                <button type="submit" class="form-button">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+        <p>&copy; 2024 Алексей Крылов | Коучинг для бизнеса | <a href="https://t.me/example">Telegram</a></p>
+    </footer>
+
+    <!-- ===== Scroll to Top Button ===== -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Наверх">&#8593;</button>
+
+    <script>
+        // ===== Tabs =====
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // ===== Sticky Header Shadow =====
+        const header = document.querySelector('header');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Scroll to top button visibility
+            if (window.scrollY > 400) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // ===== Scroll to Top =====
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== Scroll Reveal (IntersectionObserver) =====
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Animated Counters =====
+        const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-count'), 10);
+                    const suffix = el.closest('.stat-box').querySelector('.stat-text').textContent === 'Рекомендаций' ? '%' : '+';
+                    let current = 0;
+                    const duration = 1500;
+                    const startTime = performance.now();
+
+                    function updateCounter(now) {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // easeOutCubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        current = Math.round(eased * target);
+                        el.textContent = current + suffix;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        }
+                    }
+
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        statNumbers.forEach(el => counterObserver.observe(el));
+    </script>
+</body>
+</html>

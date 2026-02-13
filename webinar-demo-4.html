@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн интенсив — Монетизация экспертизы</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            color: #2c3e50;
+            background: white;
+            line-height: 1.6;
+        }
+
+        /* ===== Scroll Reveal ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Mobile Menu ===== */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: white;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            z-index: 998;
+            animation: slideIn 0.3s;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav a:hover {
+            color: #e74c3c;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+
+        /* ===== Hero / Header ===== */
+        header {
+            position: relative;
+            background: linear-gradient(135deg, #e74c3c, #c0392b, #e74c3c);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 120px 20px 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== Floating Shapes ===== */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            top: -80px;
+            left: -80px;
+            animation: floatShape 6s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: white;
+            bottom: -60px;
+            right: -40px;
+            animation: floatShape 8s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: white;
+            top: 40%;
+            right: 10%;
+            animation: floatShape 7s ease-in-out infinite 1s;
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            background: white;
+            bottom: 20%;
+            left: 8%;
+            animation: floatShape 9s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .date {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.15em;
+            max-width: 650px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Countdown Timer ===== */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 18px 22px;
+            min-width: 90px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown-number {
+            font-size: 2.2em;
+            font-weight: 800;
+            line-height: 1;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.8em;
+            opacity: 0.85;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #e74c3c;
+            padding: 18px 55px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== Sections ===== */
+        section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== What You Learn ===== */
+        .what-you-learn {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .learn-list {
+            background: #fafbfc;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #ecf0f1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .learn-list:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .learn-list ul {
+            list-style: none;
+        }
+
+        .learn-list li {
+            padding: 14px 0;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1.05em;
+            color: #34495e;
+        }
+
+        .learn-list li:last-child {
+            border-bottom: none;
+        }
+
+        .learn-list li:before {
+            content: "\2713 ";
+            color: #e74c3c;
+            font-weight: 800;
+            margin-right: 10px;
+        }
+
+        /* ===== Reviews ===== */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-card::before {
+            content: "\201C";
+            font-size: 4em;
+            color: #e74c3c;
+            opacity: 0.15;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .review-name {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1em;
+        }
+
+        .review-role {
+            font-size: 0.85em;
+            color: #95a5a6;
+        }
+
+        .review-stars {
+            color: #f39c12;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            color: #555;
+            font-size: 0.97em;
+            line-height: 1.7;
+        }
+
+        /* ===== Speaker ===== */
+        .speaker-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #ecf0f1 100%);
+            padding: 55px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .speaker-avatar {
+            width: 130px;
+            height: 130px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8em;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.25);
+        }
+
+        .speaker-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .speaker-title {
+            color: #e74c3c;
+            font-size: 1.05em;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .speaker-bio {
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ===== Webinar Details ===== */
+        .webinar-details {
+            background: #fff8f0;
+            padding: 45px;
+            border-radius: 16px;
+            border-left: 5px solid #e74c3c;
+            margin: 50px 0;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .detail-icon {
+            font-size: 1.8em;
+            flex-shrink: 0;
+        }
+
+        .detail-text h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .detail-text p {
+            color: #666;
+        }
+
+        /* ===== Registration Form ===== */
+        .registration-form {
+            background: white;
+            border: 2px solid #ecf0f1;
+            padding: 55px;
+            border-radius: 16px;
+            max-width: 500px;
+            margin: 50px auto;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .registration-form h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 1.7em;
+        }
+
+        .registration-form .form-subtitle {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.95em;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .guarantee {
+            text-align: center;
+            color: #666;
+            margin-top: 18px;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        footer p {
+            opacity: 0.85;
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 255, 255, 0.4);
+            transition: text-decoration-color 0.3s;
+        }
+
+        footer a:hover {
+            text-decoration-color: white;
+        }
+
+        /* ===== Scroll to Top Button ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.35);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.45);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 80px 20px 70px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .countdown-item {
+                padding: 12px 14px;
+                min-width: 70px;
+            }
+
+            .countdown-number {
+                font-size: 1.6em;
+            }
+
+            .countdown-label {
+                font-size: 0.7em;
+            }
+
+            .what-you-learn {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-row {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .registration-form {
+                padding: 35px 25px;
+            }
+
+            .speaker-section {
+                padding: 35px 25px;
+            }
+
+            .webinar-details {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.7em;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="menuToggle">&#9776;</button>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#learn">Что вы узнаете</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#speaker">Спикер</a>
+        <a href="#details">Детали</a>
+        <a href="#register">Зарегистрироваться</a>
+    </nav>
+
+    <!-- Hero -->
+    <header>
+        <!-- Floating Shapes -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+
+        <h1>От идеи к первым продажам</h1>
+        <div class="date">LIVE интенсив 3 дня</div>
+        <p>Превратите свой опыт в доход. Проверенная система монетизации для экспертов и консультантов</p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">03</span>
+                <span class="countdown-label">дней</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">12</span>
+                <span class="countdown-label">часов</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">минут</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">секунд</span>
+            </div>
+        </div>
+
+        <a href="#register" class="cta-button">Зарезервировать место (осталось 15)</a>
+    </header>
+
+    <!-- What You Learn -->
+    <section id="learn">
+        <h2 class="section-title reveal">Что вы узнаете</h2>
+        <p class="section-subtitle reveal">Практические знания, которые вы сможете применить уже на следующий день</p>
+        <div class="what-you-learn">
+            <div class="learn-list reveal">
+                <ul>
+                    <li>3 главные ошибки которые убивают доход</li>
+                    <li>Как найти идеальных клиентов</li>
+                    <li>Стратегия повышения цен без потери клиентов</li>
+                    <li>Система автоматизации работы</li>
+                </ul>
+            </div>
+            <div class="learn-list reveal">
+                <ul>
+                    <li>Как заработать первые 10 000 рублей</li>
+                    <li>Способы масштабирования без найма</li>
+                    <li>Инструменты для отслеживания доходов</li>
+                    <li>План действий на 30 дней</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+        <h2 class="section-title reveal">Отзывы участников</h2>
+        <p class="section-subtitle reveal">Что говорят те, кто уже прошёл наш интенсив</p>
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">ЮК</div>
+                    <div>
+                        <div class="review-name">Юлия К.</div>
+                        <div class="review-role">Дизайнер интерьеров</div>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">Заработала первые 50 000 за месяц после интенсива. Спасибо за систему! Теперь понимаю, как правильно выстроить работу с клиентами.</div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">СП</div>
+                    <div>
+                        <div class="review-name">Сергей П.</div>
+                        <div class="review-role">Бизнес-консультант</div>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">Наконец-то понял как правильно считать стоимость услуг. Чек вырос в 3 раза, а клиенты стали приходить сами.</div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-header">
+                    <div class="review-avatar">АМ</div>
+                    <div>
+                        <div class="review-name">Анна М.</div>
+                        <div class="review-role">Маркетолог</div>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">Особенно ценной была часть про автоматизацию. Освободила 15 часов в неделю и увеличила доход на 40%. Рекомендую всем!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speaker -->
+    <section id="speaker">
+        <h2 class="section-title reveal">Кто проводит интенсив</h2>
+        <p class="section-subtitle reveal">Познакомьтесь с вашим наставником на эти 3 дня</p>
+        <div class="speaker-section reveal">
+            <div class="speaker-avatar">&#128104;&#8205;&#128188;</div>
+            <div class="speaker-name">Ведущий вебинара</div>
+            <div class="speaker-title">Бизнес-консультант с 12+ лет опыта</div>
+            <div class="speaker-bio">
+                Помогал более 500 предпринимателям увеличить свой доход и создать прибыльные бизнесы. Специалист в области маркетинга, продаж и автоматизации.
+            </div>
+        </div>
+    </section>
+
+    <!-- Details -->
+    <section id="details">
+        <h2 class="section-title reveal">Детали интенсива</h2>
+        <p class="section-subtitle reveal">Всё, что нужно знать о формате и организации</p>
+        <div class="webinar-details reveal">
+            <div class="detail-row">
+                <div class="detail-item">
+                    <div class="detail-icon">&#128197;</div>
+                    <div class="detail-text">
+                        <h4>Дата</h4>
+                        <p>Следующий вебинар на этой неделе</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">&#9201;&#65039;</div>
+                    <div class="detail-text">
+                        <h4>Продолжительность</h4>
+                        <p>90 минут + вопросы</p>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-item">
+                    <div class="detail-icon">&#128187;</div>
+                    <div class="detail-text">
+                        <h4>Формат</h4>
+                        <p>Онлайн трансляция Zoom</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">&#127873;</div>
+                    <div class="detail-text">
+                        <h4>Бонус</h4>
+                        <p>Запись доступна 3 месяца</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="register">
+        <div class="registration-form reveal">
+            <h2>Зарегистрируйтесь сейчас</h2>
+            <p class="form-subtitle">Займите своё место среди участников интенсива</p>
+            <form>
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" placeholder="Имя Фамилия" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" placeholder="+7 (999) 999-99-99">
+                </div>
+                <button type="submit" class="submit-button">Зарегистрироваться</button>
+                <div class="guarantee">
+                    &#10003; Сразу получите ссылку на вебинар<br>
+                    &#10003; Никакой спама, только полезное
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Онлайн Интенсив | Монетизация | <a href="https://wa.me/example">WhatsApp поддержка</a></p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Наверх">&#8593;</button>
+
+    <script>
+        // ===== Mobile Menu =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+
+        menuToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            menuToggle.innerHTML = mobileNav.classList.contains('active') ? '&#10005;' : '&#9776;';
+        });
+
+        document.querySelectorAll('.mobile-nav a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                menuToggle.innerHTML = '&#9776;';
+            });
+        });
+
+        // ===== Countdown Timer =====
+        (function() {
+            // Set target: 3 days and 12 hours from now
+            var now = new Date();
+            var target = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000 + 12 * 60 * 60 * 1000);
+
+            function updateCountdown() {
+                var diff = target - new Date();
+                if (diff <= 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+
+                var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = d < 10 ? '0' + d : d;
+                document.getElementById('hours').textContent = h < 10 ? '0' + h : h;
+                document.getElementById('minutes').textContent = m < 10 ? '0' + m : m;
+                document.getElementById('seconds').textContent = s < 10 ? '0' + s : s;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
+
+        // ===== Scroll Reveal (IntersectionObserver) =====
+        (function() {
+            var reveals = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                reveals.forEach(function(el) {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback: show everything
+                reveals.forEach(function(el) {
+                    el.classList.add('visible');
+                });
+            }
+        })();
+
+        // ===== Scroll to Top Button =====
+        (function() {
+            var scrollBtn = document.getElementById('scrollTop');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 400) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+
+            scrollBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+</body>
+</html>
