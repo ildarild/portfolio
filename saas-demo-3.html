@@ -802,6 +802,39 @@
                 font-size: 1.8em;
             }
         }
+
+        /* ===== Founder Section ===== */
+        .founder-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 16px;
+            border-left: 4px solid #6366f1;
+        }
+        .founder-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .founder-quote {
+            font-style: italic;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        .founder-name {
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .founder-section { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -919,6 +952,17 @@
             <div class="stat-box reveal-right">
                 <div class="counter-number" data-count="24">0</div>
                 <div class="stat-text">/7 Поддержка</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section>
+        <div class="founder-section reveal">
+            <img class="founder-photo" src="https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=200&h=200&fit=crop&crop=face" alt="Павел Громов">
+            <div>
+                <div class="founder-quote">"Мы создали ProjectHub, потому что сами устали от хаоса в управлении проектами. Теперь наша команда из 20 человек работает как единый механизм."</div>
+                <div class="founder-name">Павел Громов, CEO ProjectHub</div>
             </div>
         </div>
     </section>

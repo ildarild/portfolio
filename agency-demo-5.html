@@ -724,6 +724,38 @@
                 padding: 40px 20px;
             }
         }
+
+        .founder-block {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 16px;
+            border-left: 4px solid #6366f1;
+        }
+        .founder-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .founder-text {
+            font-style: italic;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        .founder-label {
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .founder-block { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -807,6 +839,17 @@
             <div class="stat-box reveal">
                 <div class="stat-number" data-count="4.9" data-suffix="/5" data-decimal="true">0</div>
                 <div class="stat-text">Средний рейтинг</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section>
+        <div class="founder-block reveal">
+            <img class="founder-img" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=250&h=250&fit=crop&crop=face" alt="Михаил Северов">
+            <div>
+                <div class="founder-text">"Мы верим, что хороший дизайн — это не только красота, но и результат. Каждый проект мы создаём так, чтобы он приносил нашим клиентам реальные деньги."</div>
+                <div class="founder-label">Михаил Северов, основатель North Studio</div>
             </div>
         </div>
     </section>
